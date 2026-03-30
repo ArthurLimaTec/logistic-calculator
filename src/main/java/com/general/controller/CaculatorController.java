@@ -1,11 +1,7 @@
 package com.general.controller;
 
-import com.general.model.request.CustoPorKmRequest;
-import com.general.model.request.FreteRequest;
-import com.general.model.request.PesoCubadoRequest;
-import com.general.model.response.CustoPorKmResponse;
-import com.general.model.response.FreteResponse;
-import com.general.model.response.PesoCubadoResponse;
+import com.general.model.request.*;
+import com.general.model.response.*;
 import com.general.service.LogisticService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -99,5 +95,29 @@ public class CaculatorController {
     @PostMapping("/caminhao/peso-cubado")
     public ResponseEntity<PesoCubadoResponse> pesoCubado(@RequestBody @Valid PesoCubadoRequest req) {
         return ResponseEntity.ok(logisticService.calcularPesoCubado(req));
+    }
+
+    @Operation(summary = "🎯 Frete COMPLETO - Tudo em 1 cálculo!")
+    @PostMapping("/caminhao/frete-integrado")
+    public ResponseEntity<FreteIntegradoResponse> freteIntegrado(@RequestBody @Valid FreteIntegradoRequest req) {
+        return ResponseEntity.ok(logisticService.calcularFreteIntegrado(req));
+    }
+
+    @Operation(summary = "📦 Estoque Ótimo (EOQ) - NUNCA mais falta ou empaca!")
+    @PostMapping("/estoque-otimo")
+    public ResponseEntity<EOQResponse> estoqueOtimo(@RequestBody @Valid EOQRequest req) {
+        return ResponseEntity.ok(logisticService.calcularEOQ(req));
+    }
+
+    @Operation(summary = "⚖️ PISO MÍNIMO ANTT - Lei 13.703 OBRIGATÓRIO!")
+    @PostMapping("/caminhao/piso-antt")
+    public ResponseEntity<AnttResponse> pisoAntt(@RequestBody @Valid AnttRequest req) {
+        return ResponseEntity.ok(logisticService.calcularAntt(req));
+    }
+
+    @Operation(summary = "🏭 EPQ - FÁBRICAS! Lote ideal de produção")
+    @PostMapping("/epq-producao")
+    public ResponseEntity<EPQResponse> epqProducao(@RequestBody @Valid EPQRequest req) {
+        return ResponseEntity.ok(logisticService.calcularEPQ(req));
     }
 }
